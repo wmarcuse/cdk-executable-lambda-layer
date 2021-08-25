@@ -1,0 +1,38 @@
+# CDK executable in AWS Lambda
+
+This repository shows how to add a [CDK](https://aws.amazon.com/cdk/) binary executable to a NodjeJS runtime for [AWS Lambda](https://aws.amazon.com/lambda/). It utilizes Lambda Layer to provide CDK to the lambda.
+
+## Prerequisites
+
+- [Java JDK 8+](https://adoptopenjdk.net/)
+- [Gradle](https://gradle.org/install)
+
+## Usage
+- Clone the repository to your machine
+- Make sure that gradle can build the project without errors
+  - `gradle`
+- Export Lambda Layer Zip
+  - `gradle -q exportLambdaLayerZip`
+
+Now the lambda layer zip is available in `/build/layer/aws-cdk.zip`
+
+Use the Zip file to create a new Lambda Layer Version.
+
+Then create a Lambda with the Layer and the following handler with a NodeJs runtime:
+
+    exports.handler = async (event) => {
+    const spawnSync = require('child_process').spawnSync;
+    const process = spawnSync('cdk', ['--version'], {
+    stdio: 'pipe',
+    stderr: 'pipe'
+    });
+    console.log(process.status);
+    console.log(process.stdout.toString());
+    };
+
+---
+**NOTE**
+
+This project is tested under Linux and Windows WSL2. There may be executable issues when building the layer via a pure Windows cli.
+
+---
