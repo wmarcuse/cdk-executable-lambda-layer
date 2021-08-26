@@ -1,5 +1,7 @@
 # CDK executable in AWS Lambda
 
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+
 This repository shows how to add a [CDK](https://aws.amazon.com/cdk/) executable to a NodjeJS runtime for [AWS Lambda](https://aws.amazon.com/lambda/). It utilizes Lambda Layer to provide CDK to the lambda.
 
 ## Prerequisites
