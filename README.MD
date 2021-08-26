@@ -1,6 +1,6 @@
 # CDK executable in AWS Lambda
 
-This repository shows how to add a [CDK](https://aws.amazon.com/cdk/) binary executable to a NodjeJS runtime for [AWS Lambda](https://aws.amazon.com/lambda/). It utilizes Lambda Layer to provide CDK to the lambda.
+This repository shows how to add a [CDK](https://aws.amazon.com/cdk/) executable to a NodjeJS runtime for [AWS Lambda](https://aws.amazon.com/lambda/). It utilizes Lambda Layer to provide CDK to the lambda.
 
 ## Prerequisites
 
@@ -16,23 +16,23 @@ This repository shows how to add a [CDK](https://aws.amazon.com/cdk/) binary exe
 
 Now the lambda layer zip is available in `/build/layer/aws-cdk.zip`
 
-Use the Zip file to create a new Lambda Layer Version.
+Use the Zip file to create a new Lambda Layer Version i.e. via the Web Console, CDK or in another way.
 
-Then create a Lambda with the Layer and the following handler with a NodeJs runtime:
+Then create a Lambda function with the Layer attached and the following handler assigned with a NodeJs runtime:
 
     exports.handler = async (event) => {
-    const spawnSync = require('child_process').spawnSync;
-    const process = spawnSync('cdk', ['--version'], {
-    stdio: 'pipe',
-    stderr: 'pipe'
-    });
-    console.log(process.status);
-    console.log(process.stdout.toString());
+      const spawnSync = require('child_process').spawnSync;
+      const process = spawnSync('cdk', ['--version'], {
+      stdio: 'pipe',
+      stderr: 'pipe'
+      });
+      console.log(process.status);
+      console.log(process.stdout.toString());
     };
 
 ---
 **NOTE**
 
-This project is tested under Linux and Windows WSL2. There may be executable issues when building the layer via a pure Windows cli.
+This project is tested under Linux and Windows WSL-2. There may be executable issues when building the layer via a pure Windows cli.
 
 ---
