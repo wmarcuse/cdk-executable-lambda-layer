@@ -1,0 +1,26 @@
+name: Artifactory publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and upload artifact
+    environment: dev_environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      - name: Build with Gradle
+        run: gradle -q exportLambdaLayerZip
+      - uses: actions/checkout@v2
+      - name: Run Artifactory commands
+        run: |
+          curl -H "X-JFrog-Art-Api:${{ JF_API_KEY }}" -T ./build/layer/aws-cdk.zip "${{ JF_REPOSITORY }}/aws-cdk.zip"
