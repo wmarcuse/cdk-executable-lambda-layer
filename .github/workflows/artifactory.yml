@@ -22,4 +22,4 @@ jobs:
         run: gradle -q exportLambdaLayerZip
       - name: Upload to Artifactory
         run: |
-          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/aws-cdk.zip" &>/dev/null
+          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/lambda-layer-cdk.zip" &>/dev/null
