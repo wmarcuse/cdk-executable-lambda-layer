@@ -21,7 +21,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Build with Gradle
         run: gradle -q exportLambdaLayerZip
-      - uses: actions/checkout@v2
       - name: Run Artifactory commands
         run: |
-          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T ./build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/aws-cdk.zip"
+          ls
+          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/aws-cdk.zip"
