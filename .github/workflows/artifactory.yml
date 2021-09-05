@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     name: Build and upload artifact
-    environment: dev_environment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +20,6 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Build with Gradle
         run: gradle -q exportLambdaLayerZip
-      - name: Run Artifactory commands
+      - name: Upload to Artifactory
         run: |
-          ls
-          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/aws-cdk.zip"
+          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/aws-cdk.zip" &>/dev/null
