@@ -23,4 +23,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run Artifactory commands
         run: |
-          curl -H "X-JFrog-Art-Api:${{ JF_API_KEY }}" -T ./build/layer/aws-cdk.zip "${{ JF_REPOSITORY }}/aws-cdk.zip"
+          curl -H "X-JFrog-Art-Api:${{ secrets.JF_API_KEY }}" -T ./build/layer/aws-cdk.zip "${{ secrets.JF_REPOSITORY }}/aws-cdk.zip"
