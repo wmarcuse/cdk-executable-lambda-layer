@@ -11,8 +11,6 @@ This repository shows how to add a [CDK](https://aws.amazon.com/cdk/) executable
 
 ## Usage
 - Clone the repository to your machine
-- Make sure that gradle can build the project without errors
-  - `gradle`
 - Export Lambda Layer Zip
   - `gradle -q exportLambdaLayerZip`
 
